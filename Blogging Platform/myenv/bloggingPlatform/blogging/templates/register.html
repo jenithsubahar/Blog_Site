@@ -1,0 +1,171 @@
+<!-- templates/register.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blogging PlatForm</title>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <style>
+        body {
+            background-color: lightgoldenrodyellow; /* Light gray background color */
+            font-size: 20px; /* Larger font size */
+            text-align: center; /* Center align text */
+        }
+        form {
+            background-color: #ffffff; /* White background for the form */
+            width: 400px; /* Set width for the form */
+            margin: 0 auto; /* Center the form horizontally */
+            padding: 20px; /* Add some padding */
+            border-radius: 10px; /* Add rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+        }
+        label {
+            display: block; /* Display labels as block elements */
+            margin-bottom: 10px; /* Add some space below labels */
+            font-weight: bold; /* Make labels bold */
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%; /* Make input fields fill the width */
+            padding: 5px; /* Add some padding */
+            margin-bottom: 20px; /* Add some space below input fields */
+            border: 1px solid #cccccc; /* Add a border */
+            border-radius: 5px; /* Add rounded corners */
+        }
+        button {
+            background-color: #4caf50; /* Green background color for the button */
+            font-size: 20px;
+            color: #ffffff; /* White text color */
+            padding: 10px 10px; /* Add padding */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Add cursor pointer */
+        }
+        button:hover {
+            background-color: #45a049; /* Dark green color on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Blogging Register</h1>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" id="mobile" name="mobile" required><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html> -->
+
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blogging Platform</title>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <style>
+        body {
+            background-color: lightgoldenrodyellow; /* Light gray background color */
+            font-size: 20px;
+            font-family: Arial, sans-serif; /* Use Arial font */
+            color: #333; /* Text color */
+        }
+        .container {
+            max-width: 800px; /* Maximum width for the content */
+            margin: 0 auto; /* Center the content horizontally */
+            padding: 20px; /* Add some padding */
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+        h1 {
+            text-align: center; /* Center align the heading */
+        }
+        form {
+            text-align: center; /* Center align the form */
+        }
+        label {
+            display: block; /* Display labels as block elements */
+            margin-bottom: 10px; /* Add some space below labels */
+            font-weight: bold; /* Make labels bold */
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 22px); /* Make input fields fill the width minus padding */
+            font-size: 20px;
+            padding: 10px; /* Add padding */
+            margin-bottom: 20px; /* Add some space below input fields */
+            border: 1px solid #cccccc; /* Add a border */
+            border-radius: 5px; /* Add rounded corners */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+        button {
+            background-color: #4caf50; /* Green background color for the button */
+            font-size: 20px;
+            color: #ffffff; /* White text color */
+            padding: 10px 20px; /* Add padding */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Add cursor pointer */
+        }
+        button:hover {
+            background-color: red; /* Dark green color on hover */
+        }
+        .already-have-account {
+            font-size: 25px;
+            text-align: center; /* Center align the paragraph */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Blogging Register</h1>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" id="mobile" name="mobile" required><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <p class="already-have-account">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
+
+</body>
+</html>
+

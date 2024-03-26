@@ -1,0 +1,411 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Add your CSS styles here */
+        body {
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Do not repeat the background image */
+            background-color: lightgoldenrodyellow;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: left; /* Align all text content to the left */
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto; /* Center the container */
+            text-align: left; /* Align text content to the left */
+        }
+        h1 {
+            font-size: 35px;
+            text-align: center;
+        }
+        .blog {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left; /* Align text content to the left */
+        }
+        .title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 35px;
+        }
+        h2{
+            font-size: 35px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .content {
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+        .category {
+            font-style: italic;
+            color: #888;
+        }
+        
+        .image-container {
+            font-size: 35px;
+            text-align: left; /* Center images */
+        }
+        .image {
+            max-width: 100%; /* Adjust the max-width as needed */
+            height: auto;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .btn {
+            background-color: #4caf50;
+            font-size: 15px;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        /* Add a black background color to the top navigation */
+        .topnav {
+        background-color: #333;
+        overflow: hidden;
+        }
+        /* Style the links inside the navigation bar */
+        .topnav a {
+        font-size: 25px;
+        border-radius: 50px;
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 25px;
+        text-decoration: none;
+        }
+
+        /* Change the color of links on hover */
+        .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+        }
+
+        /* Add a color to the active/current link */
+        .topnav a.active {
+        background-color: #04AA6D;
+        color: white;
+        }
+        .topnav input[type=text] {
+        float: right;
+        padding: 2px;
+        margin-top: 22px;
+        margin-right: 10px;
+        font-size: 25px;
+        border-radius: 15px;
+        }
+        .delete-btn i {
+            font-size: 28px; /* Adjust the size as needed */
+            margin-left: 730px;
+        }
+        h3 {
+        font-size: 25px;
+        }   
+        textarea {
+        font-size: 20px;
+        }
+        button {
+        padding: 2px;
+        margin-top: 22px;
+        font-size: 20px;
+        border-radius: 10px;
+        }
+        div.comment {
+    font-size: 20px;
+        }
+
+        .comment-container {
+            display: flex; /* Use flexbox */
+        }
+
+        .comment {
+            flex: 1; /* Take up remaining space */
+            margin-right: 10px; /* Add some space between textarea and button */
+
+            margin-top: 20px;
+            }
+
+        .comment {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment p {
+            margin: 0;
+        }
+
+        .comment .author {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .comment .text {
+            color: #555;
+        }
+
+        .comment .timestamp {
+            font-size: 12px;
+            color: #888;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Blog Posts</h1>
+        <div id="blogs">
+            <!-- Blogs will be displayed here dynamically -->
+        </div>
+        <hr>
+    </div>
+    <br>    
+    <div class="topnav">
+        <a href="#" onclick="editBlog()"><i class="fas fa-edit"></i> Edit</a>
+       
+        <a href="#" onclick="saveBlog()"><i class="fas fa-save"></i> Save</a>
+        <a href="{% url 'blogPage' %}" ><i class="fa fa-fw fa-home"></i> Home</a>
+        <!-- <input type="text" placeholder="Search.."> -->
+        <input type="text" id="searchInput" oninput="searchBlogs()" placeholder="Search...">
+
+      </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <h1>Blog Posts</h1>
+        <div id="blogs">
+            <!-- Blogs will be displayed here dynamically -->
+            {% for post in blog_posts %}
+            <div class="blog">
+                <a href="" class="delete-btn" onclick="deletePost('{{ post.id }}')"><i class="fas fa-trash-alt"></i></a>
+                <div class="title">{{ post.title }}</div>
+                <div class="content">{{ post.content }}</div>
+                {% if post.image %}
+                <div class="image-container">
+                    <img class="image" src="{{ post.image.url }}" alt="Image">
+                </div>
+                {% endif %}
+                <div class="category">Category: {{ post.category }}</div>
+                <h3>Comments</h3>
+                <!-- <form id="commentForm_{{ post.id }}"> -->
+                
+                <div class="comment-container">
+                    <textarea class="comment" id="commentInput_{{ post.id }}" placeholder="Enter your comment" required></textarea>
+                    <button type="button" onclick="submitComment('{{ post.id }}')">Submit</button>
+                </div>
+                <div id="comments_{{ post.id }}" class="comments">
+                    <!-- Comments will be displayed here dynamically -->
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <hr>
+    </div>
+    <script>
+        // Function to dynamically display blogs
+        function displayBlogs(blogs) {
+            var blogsHtml = '';
+            blogs.forEach(function(blog) {
+                blogsHtml += '<div class="blog" data-id="' + blog.id + '">';
+                blogsHtml += '<div class="title">' + blog.title + '</div>';
+                blogsHtml += '<img class="image" src="' + blog.image_url + '" alt="Blog Image">';
+                blogsHtml += '<div class="content">' + blog.content + '</div>';
+                blogsHtml += '<div class="category">Category: ' + blog.category + '</div>';
+                blogsHtml += '</div>';
+            });
+
+            document.getElementById('blogs').innerHTML = blogsHtml;
+        }
+
+        function submitComment(postId) {
+            var commentInput = document.getElementById('commentInput_' + postId).value;
+            var formData = new FormData();
+            formData.append('post_id', postId);
+            formData.append('comment', commentInput);
+            var csrftoken = getCookie('csrftoken');
+            fetch('/api/submit-comment/', {
+                method: 'POST',
+                headers: {
+                        'X-CSRFToken': csrftoken
+                    },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Assuming the server returns the newly submitted comment
+                var commentsContainer = document.getElementById('comments_' + postId);
+                commentsContainer.innerHTML += '<div class="comment">' + data.comment + '</div>';
+                document.getElementById('commentInput_' + postId).value = ''; // Clear comment input field after submission
+            })
+            .catch(error => {
+                console.error('Error submitting comment:', error);
+            });
+        }
+
+        // Function to fetch blogs from the server
+        function fetchBlogs() {
+            fetch('/api/blogs') // Replace with your API endpoint
+                .then(response => response.json())
+                .then(data => displayBlogs(data))
+                .catch(error => console.error('Error fetching blogs:', error));
+        }
+
+        // Function to edit a blog
+        function editBlog() {
+            var titleElements = document.querySelectorAll('.title');
+            var contentElements = document.querySelectorAll('.content');
+            
+            titleElements.forEach(function(element) {
+                element.contentEditable = true;
+                element.style.border = '1px solid #ccc';
+            });
+
+            contentElements.forEach(function(element) {
+                element.contentEditable = true;
+                element.style.border = '1px solid #ccc';
+            });
+        }
+            // Implement edit functionality here
+            // alert('Edit Blog functionality to be implemented');
+        
+        // Function to delete a post
+        function deletePost(postId) {
+            var confirmation = confirm("Are you sure you want to delete this post?");
+            if (confirmation) {
+                // Fetch CSRF token from cookies
+                var csrftoken = getCookie('csrftoken');
+                fetch('/api/delete-post/' + postId + '/', {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Remove the post from the UI
+                        var post = document.querySelector('.blog[data-id="' + postId + '"]');
+                        post.remove(); // Remove the post from the DOM
+                    } else {
+                        throw new Error('Failed to delete post');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting post:', error);
+                });
+            }
+        }
+
+        // Function to get CSRF token from cookies
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+       
+
+        // Function to save a blog
+        function saveBlog() {
+            var titleElements = document.querySelectorAll('.title');
+            var contentElements = document.querySelectorAll('.content');
+
+            titleElements.forEach(function(element) {
+                element.contentEditable = false;
+                element.style.border = 'none';
+            });
+
+            contentElements.forEach(function(element) {
+                element.contentEditable = false;
+                element.style.border = 'none';
+            });
+            
+            alert('Changes saved successfully!');
+            // Implement save functionality here
+            // alert('Save Blog functionality to be implemented');
+        }
+
+        // Function to go back to home
+        function goHome() {
+            window.location.href = 'blogView.html';
+            // Implement go home functionality here
+            // alert('Go Home functionality to be implemented');
+        }
+
+        function searchBlogs() {
+            var input, filter, blogs, blog, title, content, i;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase();
+            blogs = document.querySelectorAll('.blog');
+
+            var found = false; // Flag to track if any matching result is found
+
+            blogs.forEach(function(blog) {
+                title = blog.querySelector('.title');
+                content = blog.querySelector('.content');
+
+                if (title.innerText.toUpperCase().indexOf(filter) > -1 || content.innerText.toUpperCase().indexOf(filter) > -1) {
+                    blog.style.display = '';
+                    found = true; // Set flag to true if matching result is found
+                } else {
+                    blog.style.display = 'none';
+                }
+            });
+
+            if (!found) {
+                alert('No matching results found.');
+            }
+        }
+
+        // Fetch blogs on page load
+        fetchBlogs();
+    </script>
+</body>
+</html>

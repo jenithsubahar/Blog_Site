@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogging Platform</title>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            background-color: lightgoldenrodyellow; /* Light gray background color */
+            font-size: 30px; /* Larger font size */
+            text-align: center; /* Center align text */
+        }
+        label {
+            display: block; /* Display labels as block elements */
+            margin-bottom: 10px; /* Add some space below labels */
+            font-weight: bold; /* Make labels bold */
+        }
+        button {
+            background-color: #4caf50; /* Green background color for the button */
+            color: #ffffff; /* White text color */
+            font-size: 25px;
+            padding: 15px 20px; /* Add padding */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Add cursor pointer */
+            margin: 10px; /* Add margin between buttons */
+        }
+        button:hover {
+            background-color: red; /* Dark green color on hover */
+        }
+        #postForm {
+            display: inline-block; /* Display form inline */
+            text-align: left; /* Align form contents to left */
+        }
+    </style>
+</head>
+<body>
+    <h1>Blogging Platform</h1>
+
+    <!-- Form for creating/editing posts -->
+    <div id="postForm" style="display: none;">
+        <h2 id="formTitle"></h2>
+        <form id="postFormInner">
+            <input type="hidden" id="postId">
+            <label for="postTitle">Title:</label><br>
+            <input type="text" id="postTitle" required><br>
+            <label for="postContent">Content:</label><br>
+            <textarea id="postContent" rows="5" required></textarea><br>
+            <button type="submit" id="saveBtn"></button>
+            <button type="button" id="cancelBtn">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Buttons for creating, editing, and deleting posts -->
+    <div>
+        <button id="newPostBtn" onclick="validateForm1()"><a href="{% url 'blogCreate' %}">Create New Blog</a></button>
+        
+        <button id="viewPostBtn" onclick="validateForm2()"><a href="{% url 'blogView' %}">View All Blogs</a></button>
+    </div>
+
+    <!-- Container for displaying posts -->
+    <div id="postList"></div>   
+
+    <script>
+        // JavaScript code for interacting with the page
+        // Add your JavaScript code here
+        function validateForm1(){
+            console.log('validate')
+            window.location.href = "{% url 'blogCreate' %}";
+        }    
+    </script>
+    <script>
+        function validateForm2(){
+            console.log('validating')
+            window.location.href = "blogView.html";
+        }
+    </script>
+</body>
+</html>

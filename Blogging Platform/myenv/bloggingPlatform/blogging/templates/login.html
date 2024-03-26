@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br> 
+    <style>
+        body {
+            /* background-image: url('{% static "img/Blogging.jpeg" %}');
+            background-size: cover; /* Cover the entire background */
+            /* background-repeat: no-repeat; Do not repeat the background image  */
+            /* opacity: 0.7;
+            z-index: -1;     */
+            background-color: lightgoldenrodyellow;
+            font-size: 25px; /* Larger font size */
+            text-align: center; /* Center align text */
+        }
+        .login-container {
+            width: 100%;
+            margin-top: 10px; /* Adjust margin top for spacing */
+        }
+        form {
+            background-color: black; /* White background for the form */
+            width: 400px; /* Set width for the form */
+            margin: 0 auto; /* Center the form horizontally */
+            padding: 20px; /* Add some padding */
+            border-radius: 10px; /* Add rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+        }
+        label {
+            display: block; /* Display labels as block elements */
+            margin-bottom: 10px; /* Add some space below labels */
+            font-weight: bold; /* Make labels bold */
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 75%; /* Make input fields fill the width */
+            padding: 10px; /* Add some padding */
+            margin-bottom: 10px; /* Add some space below input fields */
+            border: 1px solid #cccccc; /* Add a border */
+            border-radius: 5px; /* Add rounded corners */
+            font-size: 20px; /* Set font size */
+        }
+        button {
+            background-color: #4caf50; /* Green background color for the button */
+            font-size: 20px;
+            color: #ffffff; /* White text color */
+            padding: 10px 20px; /* Add padding */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Add cursor pointer */
+        }
+        button:hover {
+            background-color: red; /* Dark green color on hover */
+        }
+        .dont-have-account {
+            font-size: 25px;
+            text-align: center; /* Center align the paragraph */
+            margin-top: 20px; /* Adjust margin top for spacing */
+        }
+    </style>
+</head>
+<body>
+    <h2 style = "color:black">Blogging Login</h2>
+    <div class="login-container">
+        <form method="post" action="{% url 'blogPage' %}">
+            {% csrf_token %}
+            <label style = "color:white" for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label style = "color:white"     for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <button type="submit">Login</button>
+            <p style = "color:white" class="dont-have-account">Don't have an account? <a style = "color:yellow" href="{% url 'register' %}">Register</a></p>
+        </form>
+    </div>
+</body>
+</html>
